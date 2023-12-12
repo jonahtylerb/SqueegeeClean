@@ -20,6 +20,9 @@ const Calculator: Component = () => {
   const [teller, setTeller] = createSignal(0);
   const [overheadOrSlim, setOverheadOrSlim] = createSignal(0);
 
+  const [anything, setAnything] = createSignal(0);
+  const [anythingPrice, setAnythingPrice] = createSignal(0);
+
   const changeFloor = (e: InputEvent) => {
     const target = e.target as HTMLInputElement;
     setFloor(+target.value);
@@ -37,7 +40,8 @@ const Calculator: Component = () => {
         lgStoreFront() * prices.lgStoreFront +
         midStoreFront() * prices.midStoreFront +
         overheadOrSlim() * prices.overheadOrSlim +
-        teller() * prices.teller,
+        teller() * prices.teller +
+        anything() * anythingPrice(),
     );
   });
 
@@ -84,7 +88,7 @@ const Calculator: Component = () => {
       <section class="card shadow-lg mt-10 b-3">
         <div class="card-body">
           <h2 class="text-3xl font-bold card-title mx-auto">Windows</h2>
-          <div class="grid gap-5 md:grid-cols-2">
+          <div class="grid gap-5 md:grid-cols-2 grid-cols-1">
             <Window img="tier.svg" price={prices.tier} signal={[tier, setTier]}>
               2 Tier windows
             </Window>
@@ -132,6 +136,14 @@ const Calculator: Component = () => {
               signal={[overheadOrSlim, setOverheadOrSlim]}
             >
               Medium Overhead / Slim
+            </Window>
+
+            <Window
+              class="md:col-span-2"
+              priceSignal={[anythingPrice, setAnythingPrice]}
+              signal={[anything, setAnything]}
+            >
+              Miscellaneous
             </Window>
           </div>
         </div>
